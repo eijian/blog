@@ -1,11 +1,11 @@
-�܂��AHello, World!�ł�
+まあ、Hello, World!でも
 ----
 
 
-���p�I�ȃv���O��������邱�Ƃ��ړI�Ȃ̂ŁA���s�t�@�C����
-�쐬�ł��Ȃ��Ă͎n�܂�Ȃ��BHaskell�̖{���ƑΘb�����g����
-���X�g�����ċN�Ȃǂ̐������������A�����ł͂Ȃ��Ă܂���
-�R���p�C�����Ă݂�B�����܂��"Hello, World!"�ł������Ă݂�B
+実用的なプログラムを作ることが目的なので、実行ファイルを
+作成できなくては始まらない。Haskellの本だと対話環境を使った
+リスト操作や再起などの説明が多いが、そうではなくてまずは
+コンパイルしてみる。お決まりの"Hello, World!"でも書いてみる。
 
 ---
 (Greeting.hs)
@@ -13,18 +13,18 @@
 main = putStrLn "Hello, World!"
 ---
 
-Ruby�قǒZ���Ȃ����A���Ȃ�Ȍ��ɏ���������Ǝv���BJava����
-���낢��C������ρA�Ƃ����̂�Haskell�ɗ���Ă������R�̈�B
+Rubyほど短くないが、かなり簡潔に書ける方だと思う。Javaだと
+いろいろ修飾が大変、というのもHaskellに流れてきた理由の一つ。
 
-�R���p�C������B
+コンパイルする。
 
 ---
 $ ghc Greeting
 ---
 
-����ŁA"Greeting"�Ƃ������s�t�@�C�����ł���B�ȒP���B
-�o�̓t�@�C���̖��O�w��(-o �I�v�V����)��œK��(-O, -O2)��
-OK�B(�O��"--make"�����Ă��������͗v��Ȃ��炵���j
+これで、"Greeting"という実行ファイルができる。簡単だ。
+出力ファイルの名前指定(-o オプション)や最適化(-O, -O2)も
+OK。(前は"--make"をつけていたが今は要らないらしい）
 
 http://d.hatena.ne.jp/kazu-yamamoto/20140206/1391666962
 
@@ -32,8 +32,8 @@ http://d.hatena.ne.jp/kazu-yamamoto/20140206/1391666962
 $ ghc -o gre -O2 Greeting
 ---
 
-�傫�ȃv���O�����ɂȂ�ƃ��W���[�������Ƃ��o�Ă���̂ŁA
-���̕ӂ������Ă����Bmain�̌^���B
+大きなプログラムになるとモジュール分割とか出てくるので、
+その辺も書いておく。mainの型も。
 
 ---
 (Greeting2.hs)
@@ -46,14 +46,14 @@ main :: IO ()
 main = putStrLn "Hello, World!"
 ---
 
-�ŏ��A���W���[�����͉��ł������Ǝv����Java�݂����Ƀt�@�C������
-�����ɂ��Ă��玸�s�����Bghc�́uMain���W���[����"main"�v���Ȃ���
-���s�t�@�C��������Ă���Ȃ��݂����B�ŏ��̗�ł̓��W���[������
-�����Ȃ������̂ŏ����Main�Ƃ��ď��u���Ă��ꂽ�炵���B
-Main�̌��̊��ʓ��ɊO���֌��J���������O�𗅗񂷂邻����
-�i�J�v�Z�����݂����ɁH�j�B
+最初、モジュール名は何でもいいと思ってJavaみたいにファイル名と
+同じにしてたら失敗した。ghcは「Mainモジュールの"main"」がないと
+実行ファイルを作ってくれないみたい。最初の例ではモジュール名を
+書かなかったので勝手にMainとして処置してくれたらしい。
+Mainの後ろの括弧内に外部へ公開したい名前を羅列するそうだ
+（カプセル化みたいに？）。
 
-�Ō�ɁA��ʂ��疼�O����͂����Ă����������Ă݂�B
+最後に、画面から名前を入力させてあいさつさせてみる。
 
 ---
 (Greeting3.hs)
@@ -69,18 +69,18 @@ main = do
   putStrLn ("Hello, " ++ name ++ ". Nice to meet you!")
 ---
 
-���s����Ƃ���Ȋ����B
+実行するとこんな感じ。
 
 ---
 $ ghc -o gre Greeting3
   :
 $ ./gre
 What's your name?
-eijian                              <= ����
+eijian                              <= 入力
 Hello, eijian. Nice to meet you!
 ----
 
-�ł����B
+できた。
 
 
 
