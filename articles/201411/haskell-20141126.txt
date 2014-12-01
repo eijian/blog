@@ -1,0 +1,87 @@
+まあ、Hello, World!でも
+----
+
+
+実用的なプログラムを作ることが目的なので、実行ファイルを
+作成できなくては始まらない。Haskellの本だと対話環境を使った
+リスト操作や再起などの説明が多いが、そうではなくてまずは
+コンパイルしてみる。お決まりの"Hello, World!"でも書いてみる。
+
+---
+(Greeting.hs)
+
+main = putStrLn "Hello, World!"
+---
+
+Rubyほど短くないが、かなり簡潔に書ける方だと思う。Javaだと
+いろいろ修飾が大変、というのもHaskellに流れてきた理由の一つ。
+
+コンパイルする。
+
+---
+$ ghc Greeting
+---
+
+これで、"Greeting"という実行ファイルができる。簡単だ。
+出力ファイルの名前指定(-o オプション)や最適化(-O, -O2)も
+OK。(前は"--make"をつけていたが今は要らないらしい）
+
+http://d.hatena.ne.jp/kazu-yamamoto/20140206/1391666962
+
+---
+$ ghc -o gre -O2 Greeting
+---
+
+大きなプログラムになるとモジュール分割とか出てくるので、
+その辺も書いておく。mainの型も。
+
+---
+(Greeting2.hs)
+
+module Main (
+  main
+) where
+
+main :: IO ()
+main = putStrLn "Hello, World!"
+---
+
+最初、モジュール名は何でもいいと思ってJavaみたいにファイル名と
+同じにしてたら失敗した。ghcは「Mainモジュールの"main"」がないと
+実行ファイルを作ってくれないみたい。最初の例ではモジュール名を
+書かなかったので勝手にMainとして処置してくれたらしい。
+Mainの後ろの括弧内に外部へ公開したい名前を羅列するそうだ
+（カプセル化みたいに？）。
+
+最後に、画面から名前を入力させてあいさつさせてみる。
+
+---
+(Greeting3.hs)
+
+module Main (
+  main
+) where
+
+main :: IO ()
+main = do
+  putStrLn "What's your name? "
+  name <- getLine
+  putStrLn ("Hello, " ++ name ++ ". Nice to meet you!")
+---
+
+実行するとこんな感じ。
+
+---
+$ ghc -o gre Greeting3
+  :
+$ ./gre
+What's your name?
+eijian                              <= 入力
+Hello, eijian. Nice to meet you!
+----
+
+できた。
+
+
+
+
