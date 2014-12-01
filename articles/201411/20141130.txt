@@ -1,0 +1,133 @@
+* 簡易cat - コマンドライン引数
+
+はじめに、このブログはHaskellの入門記事でも何でもないので、
+その辺りはご期待には添えないのであらかじめお断りしておくことにする。
+単に、私がHaskellで何かしらソフトウェアを作るということのモチベーションを
+維持するためであり、またその過程を記録するものである。記述が大雑把なのも
+ご容赦願いたい。ただせっかく稚拙で恥ずかしいソースを晒すので、願わくば
+「高位のHaskell使い」の方からHaskellらしからぬところ、より的確な
+関数/ライブラリなど、改善につながるご助言をいただければ幸いである。
+
+さて、実用的なアプリケーションを作るにはコマンドライン引数を扱えないと
+話にならない（と考えた）ので、その辺を確認しておく。サンプルとして
+超簡易的なcatコマンドを作成する。
+
+STEP 1
+
+引数に指定したファイルを単に表示するだけのcatを作ってみる。まずは、
+最初の引数のファイルだけを表示する仕様とする。二番目以降の引数は無視。
+ちなみに、これではcatとは名ばかりである…。
+
+--Cat1.hs
+
+module Main (
+  main
+) where
+
+import System.Environment
+
+main :: IO ()
+main = do
+  (x:xs) <- getArgs
+  putFile x
+
+putFile :: String -> IO ()
+putFile f = do
+  cs <- readFile f
+  putStr cs
+
+実行してみる。
+
+$ ghc -o cat1 Cat1.hs
+$ ./cat1 Cat1.hs
+module Main (
+  :
+  putStr cs
+
+一応動いた。getArgsはリストを返すので最初の要素だけを取り出してみた。
+ファイルの読み出しと標準出力への書き出しはとても簡単。readFileで
+読んでputStrするだけ。ちなみにこの辺のテキスト処理的な簡易コマンドの
+書き方については、この本を参考にした。関数プログラミングの解説書として
+云々という評価はあるが、私的にはHaskellで実用アプリを作るという事では
+なかなかいいアプローチで説明もわかりやすいと思う。ただしAmazonでは
+もう新品は売ってないのかな?
+
+<iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=eijian-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4797336021" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+
+STEP 2
+
+次に複数のファイル名を与えてそれらを順に表示させる事にする。これで
+一応catを名乗ることができる? 複数のファイル名はリストで渡されるので、
+リストの各要素に対し同じ処理を実行するには map というのがいいらしい。
+なので先ほどのプログラムにちょっとmapを付けてみる。
+
+--Cat2.hs
+
+module Main (
+  main
+) where
+
+import System.Environment
+
+main :: IO ()
+main = do
+  xs <- getArgs
+  map putFile xs
+
+putFile :: String -> IO ()
+putFile f = do
+  cs <- readFile f
+  putStr cs
+
+コンパイルすると…
+
+$ ghc -o cat2 Cat2a
+  :
+Cat2a.hs:14:3:
+    Couldn't match type ‘[]’ with ‘IO’
+    Expected type: IO ()
+      Actual type: [()]
+  :
+
+怒られた。確かに map の型は「(a -> b) -> [a] -> [b]」なので
+mainの型と合わない。さすがに"純粋な" map をここで使う事に無理が
+あるのか?あきらめて再帰関数に変えてみた。
+
+--Cat3.hs
+
+module Main (
+  main
+) where
+
+import System.Environment
+
+main :: IO ()
+main = do
+  xs <- getArgs
+  putFiles xs
+
+putFiles :: [String] -> IO ()
+putFiles [] = do
+  putStr ""
+putFiles (x:xs) = do
+  putFile x
+  putFiles xs
+
+putFile :: String -> IO ()
+putFile f = do
+  cs <- readFile f
+  putStr cs
+
+うまく行った!（実行結果は割愛）
+
+ちなみに最初は再帰の底（putFiles [] = do のところ）を書いていなかったので
+実行時に怒られた。この辺、慣れが必要か。でも 'putStr ""' という処理が
+適切かどうかはわからない。
+
+続きは次回。
+
+
+
+
+
+
