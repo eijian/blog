@@ -12,4 +12,6 @@ cabal.config
 *~
 *.exe
 *.html
+maptest
+
 
