@@ -1,0 +1,68 @@
+test2: 波長毎のフォトン生成数
+-----
+
+* 1光源、白色
+
+argent-2:src eiji$ grep Blue ../tmp/t26 | wc
+   33209  232463 3350921
+argent-2:src eiji$ grep Blue ../tmp/t27 | wc
+   33316  233212 3362389
+argent-2:src eiji$ grep Blue ../tmp/t28 | wc
+   33404  233828 3371512
+argent-2:src eiji$ grep Blue ../tmp/t29 | wc
+   33445  234115 3375001
+argent-2:src eiji$ grep Blue ../tmp/t210 | wc
+   33217  232519 3351162
+argent-2:src eiji$ grep Red ../tmp/t26 | wc
+   33481  234367 3344667
+argent-2:src eiji$ grep Red ../tmp/t27 | wc
+   33376  233632 3334180
+argent-2:src eiji$ grep Red ../tmp/t28 | wc
+   33286  233002 3325147
+argent-2:src eiji$ grep Red ../tmp/t29 | wc
+   33310  233170 3328234
+argent-2:src eiji$ grep Red ../tmp/t210 | wc
+   33334  233338 3329926
+argent-2:src eiji$ grep Green ../tmp/t26 | wc
+   33310  233170 3394455
+argent-2:src eiji$ grep Green ../tmp/t27 | wc
+   33308  233156 3393208
+argent-2:src eiji$ grep Green ../tmp/t28 | wc
+   33310  233170 3394316
+argent-2:src eiji$ grep Green ../tmp/t29 | wc
+   33245  232715 3387415
+argent-2:src eiji$ grep Green ../tmp/t210 | wc
+   33449  234143 3408311
+
+* 複数光源、色付き
+
+argent-2:src eiji$ grep Red ../tmp/t21 | wc
+   44340  310380 4452049
+argent-2:src eiji$ grep Red ../tmp/t22 | wc
+   44404  310828 4458624
+argent-2:src eiji$ grep Red ../tmp/t23 | wc
+   44561  311927 4474836
+argent-2:src eiji$ grep Red ../tmp/t24 | wc
+   44353  310471 4452555
+argent-2:src eiji$ grep Red ../tmp/t25 | wc
+   44374  310618 4455389
+argent-2:src eiji$ grep Green ../tmp/t21 | wc
+   33460  234220 3443402
+argent-2:src eiji$ grep Green ../tmp/t22 | wc
+   33238  232666 3419808
+argent-2:src eiji$ grep Green ../tmp/t23 | wc
+   33376  233632 3434561
+argent-2:src eiji$ grep Green ../tmp/t24 | wc
+   33347  233429 3432760
+argent-2:src eiji$ grep Green ../tmp/t25 | wc
+   33497  234479 3447656
+argent-2:src eiji$ grep Blue ../tmp/t21 | wc
+   22200  155400 2284816
+argent-2:src eiji$ grep Blue ../tmp/t22 | wc
+   22358  156506 2300058
+argent-2:src eiji$ grep Blue ../tmp/t23 | wc
+   22063  154441 2270060
+argent-2:src eiji$ grep Blue ../tmp/t24 | wc
+   22300  156100 2294720
+argent-2:src eiji$ grep Blue ../tmp/t25 | wc
+   22129  154903 2278792
