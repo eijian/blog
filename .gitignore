@@ -13,5 +13,5 @@ cabal.config
 *.exe
 *.html
 maptest
-
+.DS_Store
 
