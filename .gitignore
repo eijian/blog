@@ -14,4 +14,4 @@ cabal.config
 *.html
 maptest
 .DS_Store
-
+.com-apple-bird-noname*
